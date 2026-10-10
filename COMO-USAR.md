@@ -1,62 +1,65 @@
-# Cómo adaptar una página para un cliente
+# Cómo usar las plantillas
 
-Cada página tiene **un solo archivo para editar**: `config.js`.
-Ahí están el nombre, el WhatsApp, la dirección, los precios, los horarios, las clases, los servicios y el equipo.
-No hace falta tocar `index.html` ni `app.js`.
+```
+comun/        ← base compartida (no tocar): estilos, editor y funciones comunes
+gimnasio/     ← plantilla de gimnasio
+peluqueria/   ← plantilla de peluquería / barbería / estética
+```
 
-## Gimnasio: cómo armar uno nuevo
+Cada plantilla tiene:
+- `index.html` y `app.js`: la página (no hace falta tocarlos).
+- `config.js`: **todo el contenido y el diseño** de ese cliente.
+- `editor.html` + `esquema.js`: el **editor visual** con vista previa en vivo.
 
-1. Pedile los datos al dueño con **FICHA-GIMNASIO.md**.
-2. Copiá la carpeta `gimnasio/` y ponele el nombre del negocio.
-3. Abrí **`editor.html`** en el navegador (doble clic). Ahí, con vista previa en computadora y celular:
-   - Cargás nombre, contacto, dirección, clases, planes, coaches, horario y feriados.
-   - Elegís el estilo (Neón, Fuego, Océano, Oro o Claro), el color y la tipografía.
-   - Activás, ocultás y reordenás secciones.
-   - Tocás **Descargar config.js** y reemplazás el `config.js` de la carpeta.
-4. Publicala (Netlify, Vercel o Cloudflare Pages: arrastrás la carpeta) y conectá el dominio.
+## Armar la página de un cliente nuevo
 
-El editor guarda un borrador en ese navegador. "Cargar config.js" abre la configuración de otro cliente.
+1. Pedile los datos con **FICHA-GIMNASIO.md** o **FICHA-PELUQUERIA.md**.
+2. Copiá la carpeta de la plantilla (por ejemplo `gimnasio/` → `gym-titan/`), dejándola al lado de `comun/`.
+3. Abrí `editor.html` de esa carpeta en el navegador:
+   - Cargá los datos, elegí estilo, color y tipografía, y ordená las secciones.
+   - Mirá cómo queda en computadora y celular.
+   - Tocá **Descargar config.js** y reemplazá el `config.js` de la carpeta.
+4. Publicá la carpeta del cliente **junto con `comun/`** (Netlify, Vercel o Cloudflare Pages) y conectá su dominio.
 
-### Que el dueño actualice solo (planilla de Google)
-En la sección "Planilla de Google" del editor pegás los links CSV publicados de tres hojas:
-- **clases**: dia | hora | clase | coach | duracion
-- **planes**: nombre | precio | bajada | incluye (separado por ;) | destacado (si/no) | linkPago
-- **aviso**: texto | hasta | link
+El editor guarda un borrador en el navegador. "Cargar config.js" abre la configuración de otro cliente.
 
-El dueño edita la planilla y la web toma los cambios sola (Google tarda unos minutos en actualizar el CSV).
-Si la planilla falla, la página usa los datos de `config.js`.
+## Que el dueño actualice solo (planilla de Google)
 
-## Qué hace cada página
+En el editor, sección "Planilla de Google", pegás los links CSV publicados
+(Google Sheets → Archivo → Compartir → Publicar en la web → hoja → CSV).
+El dueño edita la planilla y la web toma los cambios sola (Google tarda unos minutos).
+Si la planilla falla, la página usa `config.js`.
+
+| Plantilla | Hoja | Columnas |
+|---|---|---|
+| Gimnasio | clases | dia, hora, clase, coach, duracion |
+| Gimnasio | planes | nombre, precio, bajada, incluye (separado por ;), destacado (si/no), linkPago |
+| Peluquería | ocupados | fecha, hora, duracion, profesional (vacío = todo el salón) |
+| Peluquería | servicios | categoria, nombre, precio, duracion, detalle, porlargo (si/no) |
+| Las dos | aviso | texto, hasta, link |
+
+## Qué hace cada plantilla
 
 ### Gimnasio
-- Barra de **promoción con cuenta regresiva**, que se oculta sola al vencer.
-- Cartel **abierto / cerrado / feriado** en vivo y **próxima clase**.
-- **Horarios por día** con filtros por disciplina y por coach, clase "En curso" y "Próxima", y aviso de feriado.
-- **Reserva de clase gratis** por WhatsApp y botón **"Agregar a mi calendario"** con recordatorio 1 h antes.
-- **Recomendador de plan**, que funciona con cualquier cantidad de planes.
-- Precios **mensual / trimestral**, **pase diario** y botón **"Pagar online"** de Mercado Pago.
-- **Coaches** con "Ver sus clases", **galería** con fotos en grande (flechas y deslizar).
-- **Calculadora de calorías y macros**, que termina en un pedido de plan por WhatsApp.
-- Opiniones con link para dejar reseña, preguntas frecuentes, mapa, "Cómo llegar", barra fija en celular.
-- 5 estilos de color, 3 tipografías, logo propio, video de fondo y SEO local.
+- Promo con cuenta regresiva, estado **abierto / cerrado / feriado** y **clase en curso / próxima clase** en vivo.
+- **Horarios** por día o **grilla de la semana completa**, con filtros por disciplina y por coach. Tocar una clase abre la reserva ya completa.
+- **"¿Hay mucha gente ahora?"**: gráfico hora por hora con la hora actual y el horario más tranquilo.
+- **Reserva de clase gratis** por WhatsApp, **"Agregar a mi calendario"** e **"Invitá a un amigo"**.
+- **Recomendador de plan**, precios mensual/trimestral, pase diario, **pago online con Mercado Pago**.
+- **Resultados antes/después**, coaches con "Ver sus clases", galería ampliable, **calculadora de calorías**.
+- Opiniones, preguntas, mapa, barra fija en celular, SEO local. 5 estilos y 3 tipografías.
 
 ### Peluquería
-- **Turnos online en 5 pasos**: servicios (varios), profesional, día, horario y datos.
-  - Solo ofrece profesionales que hacen esos servicios.
-  - Calcula duración y total, y solo muestra horarios donde entra el servicio.
-  - Respeta días cerrados, feriados y la anticipación mínima.
-  - El pedido llega por WhatsApp listo para confirmar.
-- **Gift cards** con vista previa en vivo.
-- **Antes / después** deslizable.
-- Menú de precios por categoría, equipo con "Reservar con…", opiniones, preguntas, mapa y SEO local.
+- **Turnos en 5 pasos con disponibilidad real**: tiene en cuenta horario, feriados, **qué días trabaja cada profesional**, qué servicios hace y los **turnos ya ocupados** (planilla).
+- **Precio según el largo del pelo**, **combos con descuento automático**, descuento primera vez, **seña con Mercado Pago**.
+- "Próximo turno libre" en la portada, días con "Últimos" turnos, **"Agregar a mi calendario"**.
+- Menú de precios con **buscador** y categorías, antes/después, galería ampliable, equipo con "Reservar con…".
+- **Tarjeta de fidelidad**, **gift cards** con vista previa, opiniones, preguntas, mapa, SEO local. 5 estilos y 3 tipografías.
 
 ## Importante
-Los turnos llegan como **pedido por WhatsApp**: la página no sabe qué horarios ya están ocupados.
-El negocio confirma cada turno. Si un cliente necesita agenda con horarios ocupados en tiempo real,
-se puede conectar a Google Calendar o a un sistema de turnos (servicio premium).
+Los pedidos llegan **por WhatsApp** y el negocio confirma. La peluquería solo sabe qué horarios están
+ocupados si se cargan en la planilla (o en el editor).
 
 ## Mantenimiento mensual (lo que cobrás)
-- Actualizar precios, horarios, clases y promociones.
-- Cambiar fotos de trabajos y opiniones nuevas.
-- Feriados y vacaciones (`feriados` en la peluquería).
-- Dominio, hosting y que todo funcione.
+Precios, horarios, clases, promos, feriados, fotos y opiniones nuevas, dominio y hosting.
+Con la planilla conectada, el día a día lo maneja el dueño y vos cobrás por el servicio y las mejoras.

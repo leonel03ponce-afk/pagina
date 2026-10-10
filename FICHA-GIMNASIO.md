@@ -45,13 +45,20 @@ Por cada uno: **nombre · especialidad · foto · Instagram (opcional)**
 - 3 opiniones de socios (texto + nombre):
 - Números para destacar (socios, m², años abiertos, clases por semana):
 
-## 8. Preguntas frecuentes
+## 8. Concurrencia
+¿Cuánta gente suele haber cada hora? Del 0 (vacío) al 5 (lleno), de lunes a viernes y sábado.
+Ej: 6 h: 2 · 7 h: 4 · 8 h: 5 · … (alcanza con una estimación del dueño)
+
+## 9. Resultados de socios (opcional)
+Pares de fotos antes / después, con nombre, edad y el logro (ej: "-14 kg en 6 meses"). Con permiso del socio.
+
+## 10. Preguntas frecuentes
 Las 4 a 6 preguntas que más les hacen por WhatsApp, con su respuesta.
 
-## 9. Promoción actual (opcional)
+## 11. Promoción actual (opcional)
 - Texto de la promo:
 - Hasta qué fecha:
 
-## 10. Estilo
+## 12. Estilo
 - Colores de la marca (o elegimos uno: Neón, Fuego, Océano, Oro, Claro):
 - ¿Quieren que el dueño actualice clases y precios desde una planilla de Google? (sí/no)

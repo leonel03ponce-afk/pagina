@@ -20,7 +20,7 @@ window.SITE = {
   tema: { estilo: "neon", acento: "", tipografia: "impacto" },
 
   // Qué secciones se muestran y en qué orden. Borrá una para ocultarla.
-  secciones: ["portada", "numeros", "programas", "horarios", "recomendador", "planes", "coaches", "galeria", "calculadora", "opiniones", "preguntas", "ubicacion", "cierre"],
+  secciones: ["portada", "numeros", "programas", "horarios", "afluencia", "recomendador", "planes", "resultados", "coaches", "galeria", "calculadora", "opiniones", "preguntas", "ubicacion", "cierre"],
 
   // Barra superior de promoción. "hasta" (AAAA-MM-DD) muestra cuenta regresiva y la oculta al vencer.
   aviso: { texto: "Promo primavera: 20% off en el plan trimestral", hasta: "2026-11-30", link: "#planes" },
@@ -46,6 +46,23 @@ window.SITE = {
     { fecha: "2026-12-25", motivo: "Navidad" },
     { fecha: "2027-01-01", motivo: "Año Nuevo" },
   ],
+
+  /* Cuánta gente suele haber, de 0 (vacío) a 5 (lleno), hora por hora desde la apertura.
+     "semana" = lunes a viernes, "sabado" y "domingo" aparte. */
+  afluencia: {
+    semana: [2, 4, 5, 3, 2, 2, 3, 3, 2, 1, 1, 2, 3, 5, 5, 4, 3],
+    sabado: [2, 3, 4, 4, 3, 2, 2, 1, 1, 1, 1, 1],
+    domingo: [],
+  },
+
+  // Antes y después de socios (dos fotos de la misma persona)
+  resultados: [
+    { nombre: "Lucas, 32", texto: "-14 kg en 6 meses con plan Personal", antes: "", despues: "" },
+    { nombre: "Caro, 27", texto: "+6 kg de masa muscular en 1 año", antes: "", despues: "" },
+  ],
+
+  // Texto que se comparte con "Invitá a un amigo"
+  invitacion: "Vení a entrenar conmigo a FORJA, la primera clase es gratis 💪",
 
   numeros: [
     { valor: 1200, sufijo: "+", texto: "socios activos" },

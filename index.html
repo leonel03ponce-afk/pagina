@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demos de páginas web</title>
+<style>
+  :root { --ease-out: cubic-bezier(0.23, 1, 0.32, 1); }
+  * { box-sizing: border-box; margin: 0; }
+  body { min-height: 100svh; display: grid; place-items: center; padding: 32px 16px; background: #0f0f10; color: #f4f4f2; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  h1 { font-size: clamp(32px, 6vw, 56px); letter-spacing: -.02em; margin-bottom: 8px; }
+  p { color: #9a9a9f; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; width: min(720px, 100%); }
+  a { display: block; padding: 28px; border-radius: 20px; text-decoration: none; color: inherit; transition: transform 160ms var(--ease-out); }
+  a:active { transform: scale(0.97); }
+  a strong { display: block; font-size: 22px; margin-bottom: 4px; }
+  .gym { background: #c6ff3d; color: #0b0b0c; }
+  .salon { background: #f5f0e8; color: #1c1915; }
+</style>
+</head>
+<body>
+  <main>
+    <h1>Demos de páginas web</h1>
+    <p>Elegí un rubro para ver el diseño.</p>
+    <div class="grid">
+      <a class="gym" href="gimnasio/"><strong>Gimnasio</strong>FORJA — oscuro y enérgico</a>
+      <a class="salon" href="peluqueria/"><strong>Peluquería</strong>Maison Lumière — elegante y cálido</a>
+    </div>
+  </main>
+</body>
+</html>

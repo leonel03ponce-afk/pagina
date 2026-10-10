@@ -4,28 +4,41 @@ Cada página tiene **un solo archivo para editar**: `config.js`.
 Ahí están el nombre, el WhatsApp, la dirección, los precios, los horarios, las clases, los servicios y el equipo.
 No hace falta tocar `index.html` ni `app.js`.
 
-## Pasos para un cliente nuevo
+## Gimnasio: cómo armar uno nuevo
 
-1. Copiá la carpeta (`gimnasio/` o `peluqueria/`) y ponele el nombre del negocio.
-2. Abrí `config.js` y cambiá:
-   - `nombre`, `direccion`, `instagram`
-   - `whatsapp`: formato `549` + característica + número, sin espacios ni `+` (ej: `5491123456789`)
-   - `mapa`: lo que se buscaría en Google Maps para encontrar el local
-   - `horario`, precios, clases o servicios
-   - Fotos: pegá el link de cada foto del cliente (si una foto no carga, se ve un fondo de diseño)
-3. Los colores están al principio de `index.html`, en `:root` (`--accent` en el gimnasio, `--gold` en la peluquería).
-4. Publicala (Netlify, Vercel o Cloudflare Pages: arrastrás la carpeta y listo) y conectale el dominio del cliente.
+1. Pedile los datos al dueño con **FICHA-GIMNASIO.md**.
+2. Copiá la carpeta `gimnasio/` y ponele el nombre del negocio.
+3. Abrí **`editor.html`** en el navegador (doble clic). Ahí, con vista previa en computadora y celular:
+   - Cargás nombre, contacto, dirección, clases, planes, coaches, horario y feriados.
+   - Elegís el estilo (Neón, Fuego, Océano, Oro o Claro), el color y la tipografía.
+   - Activás, ocultás y reordenás secciones.
+   - Tocás **Descargar config.js** y reemplazás el `config.js` de la carpeta.
+4. Publicala (Netlify, Vercel o Cloudflare Pages: arrastrás la carpeta) y conectá el dominio.
+
+El editor guarda un borrador en ese navegador. "Cargar config.js" abre la configuración de otro cliente.
+
+### Que el dueño actualice solo (planilla de Google)
+En la sección "Planilla de Google" del editor pegás los links CSV publicados de tres hojas:
+- **clases**: dia | hora | clase | coach | duracion
+- **planes**: nombre | precio | bajada | incluye (separado por ;) | destacado (si/no) | linkPago
+- **aviso**: texto | hasta | link
+
+El dueño edita la planilla y la web toma los cambios sola (Google tarda unos minutos en actualizar el CSV).
+Si la planilla falla, la página usa los datos de `config.js`.
 
 ## Qué hace cada página
 
 ### Gimnasio
-- Cartel de **abierto / cerrado** en vivo y la **próxima clase**.
-- **Horarios por día** con filtro por disciplina, clase "En curso" y "Próxima".
-- **Reserva de clase gratis**: el cliente elige clase, día y horario, y le llega al gimnasio por WhatsApp con todo armado.
-- **Recomendador de plan** (3 preguntas).
-- Precios **mensual / trimestral** con descuento calculado solo.
-- Opiniones, preguntas frecuentes, mapa, "Cómo llegar" y barra fija en celular.
-- Datos para que Google muestre horario y puntaje (SEO local).
+- Barra de **promoción con cuenta regresiva**, que se oculta sola al vencer.
+- Cartel **abierto / cerrado / feriado** en vivo y **próxima clase**.
+- **Horarios por día** con filtros por disciplina y por coach, clase "En curso" y "Próxima", y aviso de feriado.
+- **Reserva de clase gratis** por WhatsApp y botón **"Agregar a mi calendario"** con recordatorio 1 h antes.
+- **Recomendador de plan**, que funciona con cualquier cantidad de planes.
+- Precios **mensual / trimestral**, **pase diario** y botón **"Pagar online"** de Mercado Pago.
+- **Coaches** con "Ver sus clases", **galería** con fotos en grande (flechas y deslizar).
+- **Calculadora de calorías y macros**, que termina en un pedido de plan por WhatsApp.
+- Opiniones con link para dejar reseña, preguntas frecuentes, mapa, "Cómo llegar", barra fija en celular.
+- 5 estilos de color, 3 tipografías, logo propio, video de fondo y SEO local.
 
 ### Peluquería
 - **Turnos online en 5 pasos**: servicios (varios), profesional, día, horario y datos.

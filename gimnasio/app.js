@@ -17,7 +17,12 @@
   const NAV = { horarios: "Horarios", afluencia: "¿Hay gente?", planes: "Planes", coaches: "Coaches", galeria: "El gimnasio", opiniones: "Opiniones", ubicacion: "Ubicación" };
   const NIVELES = ["Vacío", "Muy tranquilo", "Tranquilo", "Algo de gente", "Bastante gente", "Lleno"];
 
-  let S, H, wa, timers = [];
+  const TEXTOS = {
+    boton: "Clase gratis", botonLargo: "Reservá tu clase gratis", etiquetaReserva: "Primera clase gratis", tituloReserva: "Reservá tu lugar",
+    mensaje: "quiero reservar mi clase gratis", cierreKicker: "Sin compromiso", cierreTitulo: "Tu primera clase|corre por nuestra cuenta",
+    cierreTexto: "Elegí día y horario, y te esperamos. ¿Mejor de a dos? Invitá a un amigo.",
+  };
+  let S, H, T, wa, timers = [];
   const ui = { dia: null, filtro: "Todas", coach: null, vista: "lista", periodo: 1, recomendado: null, resp: {}, tipoDia: null, hora: null };
 
   /* ---------- Datos ---------- */
@@ -75,7 +80,7 @@
     const w = String(n.eslogan).split(" "), corte = Math.max(1, Math.ceil(w.length / 2)), resto = w.slice(corte);
     const media = p.video ? `<video src="${esc(p.video)}" autoplay muted loop playsinline ${p.foto ? `poster="${esc(p.foto)}"` : ""}></video>`
       : p.foto ? `<img src="${esc(p.foto)}" alt="" onerror="this.remove()">` : "";
-    const items = ["Musculación", ...new Set(S.clases.map((c) => c.nombre))];
+    const items = S.clases.length ? ["Musculación", ...new Set(S.clases.map((c) => c.nombre))] : S.programas.length ? S.programas.map((x) => x.nombre) : [S.negocio.nombre];
     return `<section class="hero">
       <div class="hero-media">${media}</div>
       <div class="wrap">
@@ -84,7 +89,7 @@
         <div class="hero-bottom">
           <div class="intro d1"><p>${esc(n.descripcion)}</p><p class="live" data-live></p></div>
           <div class="hero-ctas intro d2">
-            <button class="btn btn-primary" data-book>Reservá tu clase gratis ${ICON.arrow}</button>
+            <button class="btn btn-primary" data-book>${esc(T.botonLargo)} ${ICON.arrow}</button>
             ${S.secciones.includes("horarios") && S.clases.length ? `<a href="#horarios" class="btn btn-ghost">Ver horarios</a>` : S.secciones.includes("planes") ? `<a href="#planes" class="btn btn-ghost">Ver planes</a>` : ""}
           </div>
         </div>
@@ -478,9 +483,9 @@
         </div></div></div></section>`;
   };
 
-  R.cierre = () => `<section><div class="wrap"><div class="cta reveal"><span class="eyebrow">Sin compromiso</span>
-    <h2>Tu primera clase<br><span>corre por nuestra cuenta</span></h2><p>Elegí día y horario, y te esperamos. ¿Mejor de a dos? Invitá a un amigo.</p>
-    <div class="row"><button class="btn btn-primary" data-book>Reservar clase gratis</button><button class="btn btn-ghost" data-invite>${ICON.share} Invitá a un amigo</button></div>
+  R.cierre = () => `<section><div class="wrap"><div class="cta reveal"><span class="eyebrow">${esc(T.cierreKicker)}</span>
+    <h2>${esc(T.cierreTitulo.split("|")[0])}${T.cierreTitulo.includes("|") ? `<br><span>${esc(T.cierreTitulo.split("|")[1])}</span>` : ""}</h2><p>${esc(T.cierreTexto)}</p>
+    <div class="row"><button class="btn btn-primary" data-book>${esc(T.botonLargo)}</button><button class="btn btn-ghost" data-invite>${ICON.share} Invitá a un amigo</button></div>
   </div></div></section>`;
 
   /* ---------- Reserva de clase gratis ---------- */
@@ -513,6 +518,7 @@
     const fC = $("#f-class");
     fC.innerHTML = [SALA, ...new Set(S.clases.map((c) => c.nombre))].map((c) => `<option>${esc(c)}</option>`).join("");
     fC.value = btn?.dataset.clase || SALA;
+    fC.closest(".field").hidden = !S.clases.length;
     llenarDias(btn?.dataset.dia !== undefined ? +btn.dataset.dia : undefined);
     if (btn?.dataset.hora) llenarHoras(btn.dataset.hora);
     try { $("#f-name").value ||= localStorage.getItem("mi-nombre") || ""; } catch (e) {}
@@ -542,7 +548,7 @@
       const inicio = new Date(d); inicio.setHours(...hora.split(":").map(Number), 0, 0);
       const dur = S.clases.find((c) => c.nombre === clase)?.duracion || 60;
       ultima = { clase: clase === SALA ? "Entrenamiento" : clase, inicio, fin: new Date(inicio.getTime() + dur * 60000) };
-      window.open(wa(`Hola! Soy ${nombre} y quiero reservar mi clase gratis 💪\n\n• Clase: ${clase}\n• Día: ${DIAS[d.getDay()]} ${fechaCorta(d)}\n• Horario: ${hora}\n• Experiencia: ${$("#f-level").value}`), "_blank", "noopener");
+      window.open(wa(`Hola! Soy ${nombre} y ${T.mensaje} 💪\n\n${S.clases.length ? `• Clase: ${clase}\n` : ""}• Día: ${DIAS[d.getDay()]} ${fechaCorta(d)}\n• Horario: ${hora}\n• Experiencia: ${$("#f-level").value}`), "_blank", "noopener");
       $("[data-done-text]").textContent = `Te esperamos el ${DIAS[d.getDay()].toLowerCase()} ${fechaCorta(d)} a las ${hora}. Enviá el mensaje de WhatsApp para que te confirmemos el lugar.`;
       $("[data-form-body]").hidden = true;
       $("[data-form-done]").hidden = false;
@@ -566,6 +572,10 @@
     timers.forEach(clearInterval); timers = [];
     S = normalizar(site);
     H = N.horarios(S);
+    T = Object.assign({}, TEXTOS, S.textos);
+    $$("[data-t-boton]").forEach((el) => (el.textContent = T.boton));
+    $("[data-t-etiqueta]").textContent = T.etiquetaReserva;
+    $("#modal-title").textContent = T.tituloReserva;
     wa = (msg) => `https://wa.me/${S.negocio.whatsapp}?text=${encodeURIComponent(msg)}`;
     N.aplicarTema({ tema: S.tema, estilos: ESTILOS, tipografias: TIPOGRAFIAS, cuerpo: "family=Inter:wght@400;500;600;700", fallback: '"Impact", "Arial Narrow", sans-serif' });
     const n = S.negocio;

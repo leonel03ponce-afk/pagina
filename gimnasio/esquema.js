@@ -27,6 +27,15 @@ window.ESQUEMA = {
       { path: "aviso.hasta", label: "Termina el", tipo: "date", mitad: true },
       { path: "aviso.link", label: "Lleva a", ph: "#planes", mitad: true },
     ] },
+    { titulo: "Textos de la oferta", sub: "qué ofrecés al reservar", campos: [
+      { path: "textos.boton", label: "Botón corto", ph: "Clase gratis", mitad: true },
+      { path: "textos.botonLargo", label: "Botón largo", ph: "Reservá tu clase gratis", mitad: true },
+      { path: "textos.etiquetaReserva", label: "Etiqueta de la reserva", ph: "Primera clase gratis", mitad: true },
+      { path: "textos.tituloReserva", label: "Título de la reserva", ph: "Reservá tu lugar", mitad: true },
+      { path: "textos.mensaje", label: "Mensaje de WhatsApp (\"Hola! Soy X y …\")", ph: "quiero reservar mi clase gratis" },
+      { path: "textos.cierreTitulo", label: "Título final (| corta la línea)", ph: "Tu primera clase|corre por nuestra cuenta" },
+      { path: "textos.cierreTexto", label: "Texto final", tipo: "area" },
+    ] },
     { titulo: "Portada", sub: "foto, video y etiqueta", campos: [
       { path: "portada.etiqueta", label: "Etiqueta superior" },
       { path: "portada.foto", label: "Foto de fondo (URL)", tipo: "url" },
